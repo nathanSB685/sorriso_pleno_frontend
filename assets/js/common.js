@@ -277,7 +277,7 @@ function sair() {
 function guard(perfil) {
   const s = sessao();
   if (!s || s.perfil !== perfil) {
-    location.href = "login.html";
+    location.href = "index.html";
     return null;
   }
   return s;
@@ -286,7 +286,7 @@ function menuHTML(s, ativo) {
   const L = MENUS[s.perfil];
   return `<a href="${L[0][0]}" class="logo-img" aria-label="Sorriso Pleno"><img src="assets/image/logo_sorriso_pleno.png" alt="Sorriso Pleno"></a>
 <nav class="nav" aria-label="Principal">${L.map((l) => `<a href="${l[0]}" class="${l[0] === ativo || l[0] === ativo + ".html" ? "on" : ""}">${svg(l[1])} ${l[2]}</a>`).join("")}</nav>
-<div class="quem"><b>${esc(s.nome)}</b>${PERFIS[s.perfil]}<br><a href="login.html" onclick="sair()">${svg("sair")} Sair</a></div>`;
+<div class="quem"><b>${esc(s.nome)}</b>${PERFIS[s.perfil]}<br><a href="index.html" onclick="sair()">${svg("sair")} Sair</a></div>`;
 }
 // Telas do dentista: monta menu + área principal dentro de #app
 function shell(ativo) {
