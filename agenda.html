@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Agenda - Sorriso Pleno</title>
+    <link rel="icon" href="assets/image/logo_sorriso_pleno.jpg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside
+        class="side"
+        id="menu"
+        data-perfil="recepcao"
+        data-ativo="agenda"
+      ></aside>
+      <main class="main">
+        <div class="topo">
+          <div>
+            <label class="sub" for="dentista" style="margin: 0">Dentista</label
+            ><select id="dentista" class="troca">
+              <option>Dra. Renata Santos</option>
+              <option>Dr. Carlos Mendes</option>
+              <option>Dra. Ana Lima</option>
+              <option>Todos os dentistas</option>
+            </select>
+            <p class="sub" id="subtituloData"></p>
+          </div>
+          <div class="row">
+            <div class="tabs" role="group" aria-label="Modo de visualização">
+              <button
+                type="button"
+                class="filter active"
+                id="verDia"
+                aria-pressed="true"
+              >
+                Dia
+              </button>
+              <button
+                type="button"
+                class="filter"
+                id="verSemana"
+                aria-pressed="false"
+              >
+                Semana
+              </button>
+            </div>
+            <button
+              class="btn sec sm"
+              id="diaAnterior"
+              data-i="left"
+              aria-label="Dia anterior"
+            ></button
+            ><strong id="dataCompleta"></strong
+            ><button
+              class="btn sec sm"
+              id="proximoDia"
+              data-i="right"
+              aria-label="Próximo dia"
+            ></button
+            ><button class="btn" id="abrirModal" data-i="plus">
+              Nova consulta
+            </button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="card">
+            <span id="rotuloTotal">Pacientes no dia</span
+            ><b id="totalPacientes">0</b>
+          </div>
+          <div class="card">
+            <span>Pendentes</span><b id="totalPendentes">0</b>
+          </div>
+          <div class="card"><span>Consultórios</span><b>2</b></div>
+        </div>
+
+        <!-- VISÃO DIA -->
+        <div class="cols" id="visaoDia">
+          <section class="card">
+            <div class="top">
+              <h2>Agenda diária</h2>
+              <span class="sub">08:00 — 18:00</span>
+            </div>
+            <div id="agenda"></div>
+          </section>
+          <div>
+            <section class="card" style="margin-bottom: 20px">
+              <div class="top">
+                <h2 id="calTitulo"></h2>
+                <span class="row"
+                  ><button
+                    class="btn sec sm"
+                    id="mesAnterior"
+                    data-i="left"
+                    aria-label="Mês anterior"
+                  ></button
+                  ><button
+                    class="btn sec sm"
+                    id="mesProximo"
+                    data-i="right"
+                    aria-label="Próximo mês"
+                  ></button
+                ></span>
+              </div>
+              <div class="cal" id="cal"></div>
+            </section>
+            <section class="card proximos">
+              <h2 id="tituloLista">Próximos pacientes</h2>
+              <div class="search" data-i="search">
+                <input
+                  id="buscaPaciente"
+                  placeholder="Buscar paciente por nome"
+                  autocomplete="off"
+                />
+              </div>
+              <div id="listaPacientes"></div>
+            </section>
+          </div>
+        </div>
+
+        <!-- VISÃO SEMANA (antigo agendamento.html) -->
+        <section class="card" id="visaoSemana" hidden>
+          <div class="top">
+            <h2>Agenda semanal</h2>
+            <span class="sub">08:00 — 18:00 · sábado até 12:00</span>
+          </div>
+          <div class="week" id="semana"></div>
+          <div class="legenda">
+            <span><i class="l-conf"></i>Confirmada</span>
+            <span><i class="l-pend"></i>Pendente</span>
+            <span><i class="l-bloq"></i>Horário bloqueado</span>
+          </div>
+          <p class="sub" style="margin-top: 12px">
+            Intervalo de almoço das 12:00 às 13:00. Clique no dia para abrir a
+            agenda diária ou na consulta para abrir o prontuário.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <!-- NOVA CONSULTA (com verificação de choques) -->
+    <div
+      class="modal"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="tituloModal"
+    >
+      <div class="box agendar">
+        <h2 id="tituloModal">Nova consulta</h2>
+        <form id="formAgendamento">
+          <div class="form-grid">
+            <div class="full">
+              <label for="nome">Paciente</label>
+              <input id="nome" list="listaNomes" autocomplete="off" required />
+              <datalist id="listaNomes"></datalist>
+            </div>
+            <div>
+              <label for="dentistaForm">Dentista</label>
+              <select id="dentistaForm">
+                <option>Dra. Renata Santos</option>
+                <option>Dr. Carlos Mendes</option>
+                <option>Dra. Ana Lima</option>
+              </select>
+            </div>
+            <div>
+              <label for="sala">Consultório</label>
+              <select id="sala">
+                <option>Sala 01</option>
+                <option>Sala 02</option>
+              </select>
+            </div>
+            <div>
+              <label for="data">Data</label>
+              <input id="data" type="date" required />
+            </div>
+            <div>
+              <label for="hora">Início</label>
+              <input id="hora" type="time" step="900" required />
+            </div>
+            <div>
+              <label for="duracao">Duração</label>
+              <select id="duracao">
+                <option value="30">30 min</option>
+                <option value="60" selected>1 hora</option>
+                <option value="90">1h30</option>
+                <option value="120">2 horas</option>
+              </select>
+            </div>
+            <div>
+              <label for="status">Status</label>
+              <select id="status">
+                <option>Confirmado</option>
+                <option>Pendente</option>
+              </select>
+            </div>
+            <div class="full">
+              <label for="procedimento">Procedimento</label>
+              <input id="procedimento" required />
+            </div>
+          </div>
+          <div
+            class="alert"
+            id="alertaAgenda"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></div>
+          <div class="row">
+            <button type="button" class="btn sec" id="fecharModal">
+              Cancelar
+            </button>
+            <button class="btn" id="salvarConsulta">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      class="modal"
+      id="modalProntuario"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="prontNome"
+    >
+      <div class="box grande">
+        <div class="pront-top">
+          <div class="idp">
+            <span class="av" id="prontIni"></span>
+            <div>
+              <h2 id="prontNome" style="margin: 0"></h2>
+              <p class="sub">Prontuário do paciente</p>
+            </div>
+          </div>
+          <button
+            class="btn sec sm"
+            id="fecharProntuario"
+            data-i="x"
+            aria-label="Fechar"
+          ></button>
+        </div>
+        <div class="pront-res" id="prontResumo"></div>
+        <h3>Histórico de consultas</h3>
+        <div id="prontHistorico"></div>
+        <h3>Anotações clínicas</h3>
+        <textarea
+          id="prontNotas"
+          rows="5"
+          placeholder="Registre aqui a evolução do paciente"
+        ></textarea>
+        <div class="row">
+          <span class="sub" id="prontAviso" style="margin-right: auto"></span
+          ><button class="btn sec" id="fecharProntuario2">Fechar</button
+          ><button class="btn" id="salvarNotas">Salvar anotações</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/agenda.js"></script>
+  </body>
+</html>

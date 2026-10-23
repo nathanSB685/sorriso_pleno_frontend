@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Financeiro - Sorriso Pleno</title>
+    <link rel="icon" href="assets/image/logo_sorriso_pleno.jpg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside
+        class="side"
+        id="menu"
+        data-perfil="recepcao"
+        data-ativo="financeiro"
+      ></aside>
+      <main class="main">
+        <div class="topo">
+          <div>
+            <h1>Controle de pagamentos</h1>
+            <p class="sub">
+              Gerencie os pagamentos dos pacientes e mantenha o financeiro
+              organizado.
+            </p>
+          </div>
+          <button class="btn" id="openModal" data-i="plus">
+            Novo pagamento
+          </button>
+        </div>
+        <div class="tabs">
+          <button class="filter active" data-status="Todos">Todos</button
+          ><button class="filter" data-status="Pendente">Pendentes</button
+          ><button class="filter" data-status="Concluído">Concluídos</button>
+        </div>
+        <section class="card">
+          <div class="row" style="margin-bottom: 16px">
+            <div class="search" style="flex: 1; margin: 0" data-i="search">
+              <input id="searchInput" placeholder="Buscar paciente" />
+            </div>
+            <select id="patientFilter" style="flex: 1">
+              <option value="">Filtrar por paciente</option>
+              <option>Ana Silva Souza</option>
+              <option>Carlos Pereira</option>
+              <option>Juliana Costa</option>
+              <option>Roberto Lima</option>
+            </select>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>Procedimento</th>
+                <th>Valor</th>
+                <th>Forma de pagamento</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="paymentTable"></tbody>
+          </table>
+        </section>
+        <p class="sub" style="margin-top: 12px">
+          Protótipo navegável: os pagamentos ficam apenas na memória da página e
+          voltam ao exemplo inicial quando ela é recarregada.
+        </p>
+      </main>
+    </div>
+
+    <div class="backdrop" id="modalBackdrop">
+      <div class="box">
+        <div class="row" style="justify-content: space-between; margin: 0">
+          <h2>Novo pagamento</h2>
+          <button
+            class="ico"
+            id="closeModal"
+            aria-label="Fechar"
+            style="border: 0; background: 0; cursor: pointer; font-size: 20px"
+          >
+            ×
+          </button>
+        </div>
+        <form id="paymentForm">
+          <label for="patient">Paciente</label
+          ><select id="patient">
+            <option value="">Selecione</option>
+            <option>Ana Silva Souza</option>
+            <option>Carlos Pereira</option>
+            <option>Juliana Costa</option>
+            <option>Roberto Lima</option>
+          </select>
+          <label for="procedure">Procedimento</label
+          ><select id="procedure">
+            <option value="">Selecione</option>
+            <option>Consulta de rotina</option>
+            <option>Limpeza dental</option>
+            <option>Restauração</option>
+            <option>Extração</option>
+          </select>
+          <label for="amount">Valor (R$)</label
+          ><input id="amount" type="number" step="0.01" min="0" />
+          <label for="method">Forma de pagamento</label
+          ><select id="method">
+            <option value="">Selecione</option>
+            <option>PIX</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
+            <option>Dinheiro</option>
+          </select>
+          <label for="installments">Parcelas</label
+          ><select id="installments">
+            <option value="1">1x</option>
+            <option value="2">2x</option>
+            <option value="3">3x</option>
+            <option value="4">4x</option>
+            <option value="6">6x</option>
+          </select>
+          <p class="sub" id="installmentPreview"></p>
+          <label for="date">Data</label><input id="date" type="date" />
+          <p id="formError" role="alert"></p>
+          <div class="row">
+            <button type="button" class="btn sec" id="cancelModal">
+              Cancelar</button
+            ><button class="btn">Salvar pagamento</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="backdrop" id="successBackdrop">
+      <div class="box">
+        <h2 id="successTitle">Pagamento registrado</h2>
+        <p id="receiptSummary" style="line-height: 1.9"></p>
+        <div class="row">
+          <button class="btn sec" id="receiptButton">Emitir comprovante</button
+          ><button class="btn" id="closeSuccess">Fechar</button>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/financeiro.js"></script>
+  </body>
+</html>

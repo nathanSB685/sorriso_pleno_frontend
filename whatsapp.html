@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>WhatsApp - Sorriso Pleno</title>
+    <link rel="icon" href="assets/image/logo_sorriso_pleno.jpg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="side" id="menu" data-perfil="recepcao" data-ativo="whatsapp"></aside>
+    <main class="main">
+      <div class="topo">
+        <div>
+          <h1>Agendamento via WhatsApp</h1>
+          <p class="sub">Módulo 3: agendamento inteligente via WhatsApp</p>
+        </div>
+        <span class="badge">API WhatsApp Business: conectada</span>
+      </div>
+      <div class="cols p">
+        <div>
+          <div class="phone">
+            <header>
+              <span data-i="chat"></span>
+              <div>
+                Sorriso Pleno Bot<br /><small style="font-weight: 400"
+                  >Online · resposta instantânea</small
+                >
+              </div>
+            </header>
+            <div class="chat">
+              <div class="m">
+                Olá! Seja bem-vindo(a) ao atendimento virtual da Clínica Sorriso
+                Pleno. Como posso te ajudar hoje?
+              </div>
+              <div class="m me">Qual a localização de vocês?</div>
+              <div class="m">
+                Estamos na Av. Paulista, 1000 - São Paulo/SP. Atendemos de
+                segunda a sábado, das 08h às 18h.
+              </div>
+              <div class="m me">Quero agendar uma consulta</div>
+              <div class="m">
+                Com certeza! Para começar a coleta de dados, digite seu nome
+                completo:
+              </div>
+            </div>
+            <footer>
+              <input placeholder="Digite uma mensagem" /><button
+                class="btn sm"
+                aria-label="Enviar"
+                data-i="send"
+              ></button>
+            </footer>
+          </div>
+        </div>
+        <div>
+          <div class="stats">
+            <div class="card"><span>Agendamentos WhatsApp</span><b>0</b></div>
+            <div class="card"><span>Total na agenda hoje</span><b>3</b></div>
+            <div class="card"><span>Horários livres hoje</span><b>7</b></div>
+          </div>
+          <section class="card">
+            <h2>Agenda de consultas</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Horário</th>
+                  <th>Paciente</th>
+                  <th>Dentista</th>
+                  <th>Procedimento</th>
+                  <th>Origem</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>08:00</td>
+                  <td>João Silva<small>(11) 98822-1100</small></td>
+                  <td>Dra. Renata Santos</td>
+                  <td>Consulta inicial</td>
+                  <td>Balcão</td>
+                  <td><span class="badge">Confirmado</span></td>
+                </tr>
+                <tr>
+                  <td>09:00</td>
+                  <td>Maria Santos<small>(11) 97711-2233</small></td>
+                  <td>Dr. Carlos Mendes</td>
+                  <td>Avaliação ortodôntica</td>
+                  <td>Balcão</td>
+                  <td><span class="badge">Confirmado</span></td>
+                </tr>
+                <tr>
+                  <td>14:00</td>
+                  <td>Pedro Oliveira<small>(11) 96633-4455</small></td>
+                  <td>Dr. Rafael Costa</td>
+                  <td>Extração simples</td>
+                  <td>Balcão</td>
+                  <td><span class="badge">Confirmado</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <div class="log">
+            <b>Log de validação de regras de negócio</b><br />[10:00:02] Sistema
+            de agendamento online inicializado.<br />[10:00:05] Aguardando nova
+            mensagem de paciente via WhatsApp.<br />[13:08] Solicitação de
+            agendamento recebida do WhatsApp.
+          </div>
+        </div>
+      </div>
+    </main>
+    </div>
+    <script src="assets/js/common.js"></script>
+  </body>
+</html>

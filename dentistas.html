@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dentistas - Sorriso Pleno</title>
+    <link rel="icon" href="assets/image/logo_sorriso_pleno.jpg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside
+        class="side"
+        id="menu"
+        data-perfil="recepcao"
+        data-ativo="dentistas"
+      ></aside>
+      <main class="main">
+        <div class="topo">
+          <div>
+            <h1>Gerenciamento de dentistas</h1>
+            <p class="sub">
+              Cadastre e acompanhe os profissionais cadastrados e ativos no
+              sistema.
+            </p>
+          </div>
+          <button class="btn" id="novoDentista" data-i="plus">
+            Novo dentista
+          </button>
+        </div>
+        <div class="stats">
+          <div class="card">
+            <span>Equipe médica</span><b id="statEquipe">0 / 0 ativos</b>
+          </div>
+        </div>
+        <section class="card">
+          <div class="row" style="margin-bottom: 16px">
+            <div class="search" style="flex: 1; margin: 0" data-i="search">
+              <input id="busca" placeholder="Buscar por nome, CRO ou e-mail" />
+            </div>
+            <select id="filtro" style="width: 200px">
+              <option value="">Todos os status</option>
+              <option>Ativo</option>
+              <option>Inativo</option>
+            </select>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Profissional</th>
+                <th>CRO</th>
+                <th>Contato</th>
+                <th>E-mail</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista"></tbody>
+          </table>
+        </section>
+        <p class="sub" style="margin-top: 12px">
+          Protótipo navegável: as alterações ficam apenas na memória da página e
+          voltam ao exemplo inicial quando ela é recarregada.
+        </p>
+      </main>
+    </div>
+
+    <!-- Painel lateral: editar / novo dentista -->
+    <div class="gaveta-fundo" id="gavetaFundo"></div>
+    <aside
+      class="gaveta"
+      id="gaveta"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="gavetaTitulo"
+    >
+      <div class="gaveta-topo">
+        <h2 id="gavetaTitulo">Editar dentista</h2>
+        <button
+          type="button"
+          class="btn sec sm"
+          id="fecharGaveta"
+          data-i="x"
+          aria-label="Fechar"
+        ></button>
+      </div>
+      <form class="gaveta-corpo" id="formDentista" novalidate>
+        <label for="dNome">Nome completo</label>
+        <input
+          id="dNome"
+          placeholder="Ex.: Dra. Maria Souza"
+          autocomplete="off"
+        />
+
+        <label for="dEspecialidade">Especialidade</label>
+        <input
+          id="dEspecialidade"
+          placeholder="Ex.: Ortodontia"
+          autocomplete="off"
+        />
+
+        <label for="dCro">CRO</label>
+        <input id="dCro" placeholder="CRO-SP 12345" autocomplete="off" />
+
+        <label for="dTelefone">Telefone</label>
+        <input
+          id="dTelefone"
+          type="tel"
+          placeholder="(11) 98123-4567"
+          autocomplete="off"
+        />
+
+        <label for="dEmail">E-mail</label>
+        <input
+          id="dEmail"
+          type="email"
+          placeholder="nome@sorrisopleno.com"
+          autocomplete="off"
+        />
+
+        <label for="dStatus">Status</label>
+        <select id="dStatus">
+          <option>Ativo</option>
+          <option>Inativo</option>
+        </select>
+
+        <p class="msg-erro" id="dErro" role="alert"></p>
+        <div class="row">
+          <button type="button" class="btn sec" id="cancelarGaveta">
+            Cancelar
+          </button>
+          <button class="btn">Salvar</button>
+        </div>
+      </form>
+    </aside>
+
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/dentistas.js"></script>
+  </body>
+</html>
