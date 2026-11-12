@@ -43,7 +43,7 @@ async function api(caminho, { metodo = "GET", corpo, params } = {}) {
     // sessão expirada: volta para o login
     localStorage.removeItem("sp_token");
     localStorage.removeItem("sp_user");
-    location.href = "login.html";
+    location.href = "index.html";
   }
   if (!resp.ok)
     throw new ApiError(
