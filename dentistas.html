@@ -81,49 +81,33 @@
         ></button>
       </div>
       <form class="gaveta-corpo" id="formDentista" novalidate>
-        <label>Especialidades</label>
-       <div id="dEspecialidades"></div>
+  <label for="dNome">Nome completo</label>
+  <input id="dNome" placeholder="Ex.: Dra. Maria Souza" autocomplete="off" />
 
-        <label for="dEspecialidade">Especialidade</label>
-        <input
-          id="dEspecialidade"
-          placeholder="Ex.: Ortodontia"
-          autocomplete="off"
-        />
+  <label>Especialidades</label>
+  <div id="dEspecialidades"></div>
 
-        <label for="dCro">CRO</label>
-        <input id="dCro" placeholder="CRO-SP 12345" autocomplete="off" />
+  <label for="dCro">CRO</label>
+  <input id="dCro" placeholder="CRO-SP 12345" autocomplete="off" />
 
-        <label for="dTelefone">Telefone</label>
-        <input
-          id="dTelefone"
-          type="tel"
-          placeholder="(11) 98123-4567"
-          autocomplete="off"
-        />
+  <label for="dTelefone">Telefone</label>
+  <input id="dTelefone" type="tel" placeholder="(11) 98123-4567" autocomplete="off" />
 
-        <label for="dEmail">E-mail</label>
-        <input
-          id="dEmail"
-          type="email"
-          placeholder="nome@sorrisopleno.com"
-          autocomplete="off"
-        />
+  <label for="dEmail">E-mail</label>
+  <input id="dEmail" type="email" placeholder="nome@sorrisopleno.com" autocomplete="off" />
 
-        <label for="dStatus">Status</label>
-        <select id="dStatus">
-          <option>Ativo</option>
-          <option>Inativo</option>
-        </select>
+  <label for="dStatus">Status</label>
+  <select id="dStatus">
+    <option>Ativo</option>
+    <option>Inativo</option>
+  </select>
 
-        <p class="msg-erro" id="dErro" role="alert"></p>
-        <div class="row">
-          <button type="button" class="btn sec" id="cancelarGaveta">
-            Cancelar
-          </button>
-          <button class="btn">Salvar</button>
-        </div>
-      </form>
+  <p class="msg-erro" id="dErro" role="alert"></p>
+  <div class="row">
+    <button type="button" class="btn sec" id="cancelarGaveta">Cancelar</button>
+    <button class="btn">Salvar</button>
+  </div>
+</form>
     </aside>
 
     <script src="assets/js/common.js"></script>
