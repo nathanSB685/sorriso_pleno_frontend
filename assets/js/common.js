@@ -273,10 +273,11 @@ function sessao() {
 }
 function sair() {
   localStorage.removeItem("sp_user");
+  localStorage.removeItem("sp_token");
 }
 function guard(perfil) {
   const s = sessao();
-  if (!s || s.perfil !== perfil) {
+  if (!s || s.perfil !== perfil || !localStorage.getItem("sp_token")) {
     location.href = "index.html";
     return null;
   }
