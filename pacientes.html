@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pacientes - Sorriso Pleno</title>
+    <link rel="icon" href="assets/image/logo_sorriso_pleno.jpg" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside
+        class="side"
+        id="menu"
+        data-perfil="recepcao"
+        data-ativo="pacientes"
+      ></aside>
+      <main class="main">
+        <div class="topo">
+          <div>
+            <h1>Pacientes</h1>
+            <p class="sub">
+              Cadastre e atualize os dados dos pacientes, o tipo de atendimento
+              e acompanhe pendências financeiras.
+            </p>
+          </div>
+          <button class="btn" id="novoPaciente" data-i="plus">
+            Novo paciente
+          </button>
+        </div>
+        <section class="card">
+          <div class="search" data-i="search">
+            <input
+              id="busca"
+              type="search"
+              placeholder="Buscar por nome ou CPF completo"
+              autocomplete="off"
+            />
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>Contato</th>
+                <th>Atendimento</th>
+                <th>Situação</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista"></tbody>
+          </table>
+          <p class="sub" id="rodape" style="margin-top: 12px"></p>
+        </section>
+      </main>
+    </div>
+
+    <!-- Painel lateral: novo / editar paciente -->
+    <div class="gaveta-fundo" id="gavetaFundo"></div>
+    <aside
+      class="gaveta"
+      id="gaveta"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="gavetaTitulo"
+    >
+      <div class="gaveta-topo">
+        <h2 id="gavetaTitulo">Novo paciente</h2>
+        <button
+          type="button"
+          class="btn sec sm"
+          id="fecharGaveta"
+          data-i="x"
+          aria-label="Fechar"
+        ></button>
+      </div>
+      <form
+        class="gaveta-corpo"
+        id="formPaciente"
+        style="overflow-y: auto"
+        novalidate
+      >
+        <label for="pNome">Nome completo</label>
+        <input id="pNome" placeholder="Ex.: Maria Souza" autocomplete="off" />
+
+        <label for="pCpf">CPF</label>
+        <input
+          id="pCpf"
+          inputmode="numeric"
+          placeholder="000.000.000-00"
+          autocomplete="off"
+        />
+
+        <label for="pNasc">Data de nascimento</label>
+        <input id="pNasc" type="date" />
+
+        <label for="pWhats">WhatsApp</label>
+        <input
+          id="pWhats"
+          type="tel"
+          placeholder="(11) 98123-4567"
+          autocomplete="off"
+        />
+
+        <label for="pObs">Observações / recados</label>
+        <textarea id="pObs" rows="3" placeholder="Opcional"></textarea>
+
+        <label for="pTipo">Tipo de atendimento</label>
+        <select id="pTipo">
+          <option>Particular</option>
+          <option>Convênio</option>
+        </select>
+
+        <div id="convenioCampos" hidden>
+          <label for="pConvNome">Nome do convênio</label>
+          <input id="pConvNome" autocomplete="off" />
+          <label for="pConvCart">Número da carteirinha</label>
+          <input id="pConvCart" autocomplete="off" />
+          <label for="pConvVal">Validade da carteirinha</label>
+          <input id="pConvVal" type="date" />
+          <p class="msg-erro" id="pConvAviso"></p>
+        </div>
+
+        <div id="pendBox" hidden>
+          <p class="sub"><b>Pendências financeiras</b></p>
+          <ul class="hlist" id="pendLista"></ul>
+        </div>
+
+        <p class="msg-erro" id="pErro" role="alert"></p>
+        <div class="row">
+          <button type="button" class="btn sec" id="cancelarGaveta">
+            Cancelar
+          </button>
+          <button class="btn">Salvar</button>
+        </div>
+      </form>
+    </aside>
+
+    <script src="assets/js/common.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/pacientes.js"></script>
+  </body>
+</html>
