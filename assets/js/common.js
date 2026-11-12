@@ -259,6 +259,7 @@ const PERFIS = { recepcao: "Recepção", dentista: "Dentista" };
 const MENUS = {
   recepcao: [
     ["agenda.html", "calendar", "Agenda"],
+    ["pacientes.html", "users", "Pacientes"],
     ["dentistas.html", "dentist", "Dentistas"],
     ["financeiro.html", "wallet", "Financeiro"],
     ["whatsapp.html", "chat", "WhatsApp"],
