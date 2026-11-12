@@ -14,24 +14,16 @@
           <img src="assets/image/logo_sorriso_pleno.jpg" alt="Sorriso Pleno" />
         </div>
         <p>Agenda, pacientes e prontuários do consultório em um só lugar.</p>
-        <span class="dica">Protótipo: qualquer usuário e senha entram.</span>
       </section>
       <section class="login-form">
         <form id="f" novalidate>
           <h1>Entrar</h1>
-          <div class="perfis" role="group" aria-label="Perfil de acesso">
-            <button type="button" data-p="recepcao" aria-pressed="true">
-              Recepção
-            </button>
-            <button type="button" data-p="dentista" aria-pressed="false">
-              Dentista
-            </button>
-          </div>
           <label
-            >Usuário<input
+            >E-mail<input
               id="u"
-              autocomplete="username"
-              placeholder="Seu usuário"
+              type="email"
+              autocomplete="email"
+              placeholder="Seu e-mail"
           /></label>
           <label
             >Senha<input
@@ -49,5 +41,6 @@
     </div>
     <script src="assets/js/common.js"></script>
     <script src="assets/js/login.js"></script>
+    <script src="assets/js/api.js"></script>
   </body>
 </html>
