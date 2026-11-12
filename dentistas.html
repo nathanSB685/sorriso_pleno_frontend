@@ -58,10 +58,6 @@
             <tbody id="lista"></tbody>
           </table>
         </section>
-        <p class="sub" style="margin-top: 12px">
-          Protótipo navegável: as alterações ficam apenas na memória da página e
-          voltam ao exemplo inicial quando ela é recarregada.
-        </p>
       </main>
     </div>
 
@@ -85,12 +81,8 @@
         ></button>
       </div>
       <form class="gaveta-corpo" id="formDentista" novalidate>
-        <label for="dNome">Nome completo</label>
-        <input
-          id="dNome"
-          placeholder="Ex.: Dra. Maria Souza"
-          autocomplete="off"
-        />
+        <label>Especialidades</label>
+       <div id="dEspecialidades"></div>
 
         <label for="dEspecialidade">Especialidade</label>
         <input
@@ -135,6 +127,7 @@
     </aside>
 
     <script src="assets/js/common.js"></script>
+    <script src="assets/js/api.js"></script>
     <script src="assets/js/dentistas.js"></script>
   </body>
 </html>
