@@ -20,10 +20,7 @@
           <div>
             <label class="sub" for="dentista" style="margin: 0">Dentista</label
             ><select id="dentista" class="troca">
-              <option>Dra. Renata Santos</option>
-              <option>Dr. Carlos Mendes</option>
-              <option>Dra. Ana Lima</option>
-              <option>Todos os dentistas</option>
+              <option value="">Todos os dentistas</option>
             </select>
             <p class="sub" id="subtituloData"></p>
           </div>
@@ -73,7 +70,7 @@
           <div class="card">
             <span>Pendentes</span><b id="totalPendentes">0</b>
           </div>
-          <div class="card"><span>Consultórios</span><b>2</b></div>
+          <div class="card"><span>Consultórios</span><b id="totalSalas">0</b></div>
         </div>
 
         <!-- VISÃO DIA -->
@@ -120,7 +117,7 @@
           </div>
         </div>
 
-        <!-- VISÃO SEMANA (antigo agendamento.html) -->
+        <!-- VISÃO SEMANA -->
         <section class="card" id="visaoSemana" hidden>
           <div class="top">
             <h2>Agenda semanal</h2>
@@ -129,18 +126,18 @@
           <div class="week" id="semana"></div>
           <div class="legenda">
             <span><i class="l-conf"></i>Confirmada</span>
-            <span><i class="l-pend"></i>Pendente</span>
-            <span><i class="l-bloq"></i>Horário bloqueado</span>
+            <span><i class="l-pend"></i>Aguardando confirmação</span>
+            <span><i class="l-bloq"></i>Cancelada ou falta</span>
           </div>
           <p class="sub" style="margin-top: 12px">
             Intervalo de almoço das 12:00 às 13:00. Clique no dia para abrir a
-            agenda diária ou na consulta para abrir o prontuário.
+            agenda diária ou na consulta para abrir a ficha do paciente.
           </p>
         </section>
       </main>
     </div>
 
-    <!-- NOVA CONSULTA (com verificação de choques) -->
+    <!-- NOVA CONSULTA: horários livres vindos da API -->
     <div
       class="modal"
       id="modal"
@@ -150,55 +147,37 @@
     >
       <div class="box agendar">
         <h2 id="tituloModal">Nova consulta</h2>
-        <form id="formAgendamento">
+        <form id="formAgendamento" novalidate>
           <div class="form-grid">
             <div class="full">
               <label for="nome">Paciente</label>
-              <input id="nome" list="listaNomes" autocomplete="off" required />
+              <input
+                id="nome"
+                list="listaNomes"
+                autocomplete="off"
+                placeholder="Digite o nome e escolha na lista"
+              />
               <datalist id="listaNomes"></datalist>
             </div>
             <div>
               <label for="dentistaForm">Dentista</label>
-              <select id="dentistaForm">
-                <option>Dra. Renata Santos</option>
-                <option>Dr. Carlos Mendes</option>
-                <option>Dra. Ana Lima</option>
-              </select>
+              <select id="dentistaForm"></select>
+            </div>
+            <div>
+              <label for="procedimentoForm">Procedimento</label>
+              <select id="procedimentoForm"></select>
+            </div>
+            <div class="full">
+              <label for="data">Data</label>
+              <input id="data" type="date" />
+            </div>
+            <div class="full">
+              <label>Horários livres</label>
+              <div class="tabs" id="slots" style="flex-wrap: wrap"></div>
             </div>
             <div>
               <label for="sala">Consultório</label>
-              <select id="sala">
-                <option>Sala 01</option>
-                <option>Sala 02</option>
-              </select>
-            </div>
-            <div>
-              <label for="data">Data</label>
-              <input id="data" type="date" required />
-            </div>
-            <div>
-              <label for="hora">Início</label>
-              <input id="hora" type="time" step="900" required />
-            </div>
-            <div>
-              <label for="duracao">Duração</label>
-              <select id="duracao">
-                <option value="30">30 min</option>
-                <option value="60" selected>1 hora</option>
-                <option value="90">1h30</option>
-                <option value="120">2 horas</option>
-              </select>
-            </div>
-            <div>
-              <label for="status">Status</label>
-              <select id="status">
-                <option>Confirmado</option>
-                <option>Pendente</option>
-              </select>
-            </div>
-            <div class="full">
-              <label for="procedimento">Procedimento</label>
-              <input id="procedimento" required />
+              <select id="sala" disabled></select>
             </div>
           </div>
           <div
@@ -209,15 +188,108 @@
             hidden
           ></div>
           <div class="row">
-            <button type="button" class="btn sec" id="fecharModal">
-              Cancelar
-            </button>
-            <button class="btn" id="salvarConsulta">Salvar</button>
+            <button type="button" class="btn sec" data-fechar>Cancelar</button>
+            <button class="btn" id="salvarConsulta" disabled>Salvar</button>
           </div>
         </form>
       </div>
     </div>
 
+    <!-- CANCELAR (motivo obrigatório) -->
+    <div
+      class="modal"
+      id="modalCancelar"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="tituloCancelar"
+    >
+      <div class="box">
+        <h2 id="tituloCancelar">Cancelar consulta</h2>
+        <p class="sub" id="resumoCancelar"></p>
+        <form id="formCancelar" novalidate>
+          <label for="motivoCancelar">Motivo do cancelamento</label>
+          <textarea
+            id="motivoCancelar"
+            rows="3"
+            placeholder="Obrigatório (mínimo 5 caracteres)"
+          ></textarea>
+          <p class="msg-erro" id="erroCancelar" role="alert"></p>
+          <div class="row">
+            <button type="button" class="btn sec" data-fechar>Voltar</button>
+            <button class="btn perigo" id="confirmarCancelar">
+              Cancelar consulta
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- REMARCAR (novo horário + motivo obrigatório) -->
+    <div
+      class="modal"
+      id="modalRemarcar"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="tituloRemarcar"
+    >
+      <div class="box agendar">
+        <h2 id="tituloRemarcar">Remarcar consulta</h2>
+        <p class="sub" id="resumoRemarcar"></p>
+        <form id="formRemarcar" novalidate>
+          <div class="form-grid">
+            <div class="full">
+              <label for="dataRem">Nova data</label>
+              <input id="dataRem" type="date" />
+            </div>
+            <div class="full">
+              <label>Horários livres</label>
+              <div class="tabs" id="slotsRem" style="flex-wrap: wrap"></div>
+            </div>
+            <div>
+              <label for="salaRem">Consultório</label>
+              <select id="salaRem" disabled></select>
+            </div>
+            <div class="full">
+              <label for="motivoRem">Motivo da remarcação</label>
+              <textarea
+                id="motivoRem"
+                rows="2"
+                placeholder="Obrigatório (mínimo 5 caracteres)"
+              ></textarea>
+            </div>
+          </div>
+          <p class="msg-erro" id="erroRem" role="alert"></p>
+          <div class="row">
+            <button type="button" class="btn sec" data-fechar>Voltar</button>
+            <button class="btn" id="salvarRem" disabled>Remarcar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- HISTÓRICO DA CONSULTA -->
+    <div
+      class="modal"
+      id="modalHistorico"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="tituloHistorico"
+    >
+      <div class="box grande">
+        <div class="pront-top">
+          <h2 id="tituloHistorico" style="margin: 0">Histórico da consulta</h2>
+          <button
+            class="btn sec sm"
+            data-fechar
+            data-i="x"
+            aria-label="Fechar"
+          ></button>
+        </div>
+        <ul class="hlist" id="listaHistorico"></ul>
+      </div>
+    </div>
+
+    <!-- FICHA DO PACIENTE (dados não clínicos) -->
     <div
       class="modal"
       id="modalProntuario"
@@ -231,12 +303,12 @@
             <span class="av" id="prontIni"></span>
             <div>
               <h2 id="prontNome" style="margin: 0"></h2>
-              <p class="sub">Prontuário do paciente</p>
+              <p class="sub">Ficha do paciente</p>
             </div>
           </div>
           <button
             class="btn sec sm"
-            id="fecharProntuario"
+            data-fechar
             data-i="x"
             aria-label="Fechar"
           ></button>
@@ -244,23 +316,14 @@
         <div class="pront-res" id="prontResumo"></div>
         <h3>Histórico de consultas</h3>
         <div id="prontHistorico"></div>
-        <h3>Anotações clínicas</h3>
-        <textarea
-          id="prontNotas"
-          rows="5"
-          placeholder="Registre aqui a evolução do paciente"
-        ></textarea>
         <div class="row">
-          <span class="sub" id="prontAviso" style="margin-right: auto"></span
-          ><button class="btn sec" id="fecharProntuario2">Fechar</button
-          ><button class="btn" id="salvarNotas">Salvar anotações</button>
+          <button class="btn sec" data-fechar>Fechar</button>
         </div>
       </div>
     </div>
 
-    <div class="toast" id="toast" role="status"></div>
-
     <script src="assets/js/common.js"></script>
+    <script src="assets/js/api.js"></script>
     <script src="assets/js/agenda.js"></script>
   </body>
 </html>
