@@ -28,6 +28,14 @@
             Novo pagamento
           </button>
         </div>
+        <div class="stats">
+          <div class="card"><span>Pendentes</span><b id="statPend">—</b></div>
+          <div class="card"><span>Concluídos</span><b id="statConc">—</b></div>
+          <div class="card">
+            <span>Pacientes inadimplentes (+30 dias)</span
+            ><b id="statInad">—</b>
+          </div>
+        </div>
         <div class="tabs">
           <button class="filter active" data-status="Todos">Todos</button
           ><button class="filter" data-status="Pendente">Pendentes</button
@@ -40,10 +48,6 @@
             </div>
             <select id="patientFilter" style="flex: 1">
               <option value="">Filtrar por paciente</option>
-              <option>Ana Silva Souza</option>
-              <option>Carlos Pereira</option>
-              <option>Juliana Costa</option>
-              <option>Roberto Lima</option>
             </select>
           </div>
           <table>
@@ -61,17 +65,13 @@
             <tbody id="paymentTable"></tbody>
           </table>
         </section>
-        <p class="sub" style="margin-top: 12px">
-          Protótipo navegável: os pagamentos ficam apenas na memória da página e
-          voltam ao exemplo inicial quando ela é recarregada.
-        </p>
       </main>
     </div>
 
     <div class="backdrop" id="modalBackdrop">
       <div class="box">
         <div class="row" style="justify-content: space-between; margin: 0">
-          <h2>Novo pagamento</h2>
+          <h2 id="modalTitle">Novo pagamento</h2>
           <button
             class="ico"
             id="closeModal"
@@ -81,22 +81,14 @@
             ×
           </button>
         </div>
-        <form id="paymentForm">
+        <form id="paymentForm" novalidate>
           <label for="patient">Paciente</label
           ><select id="patient">
             <option value="">Selecione</option>
-            <option>Ana Silva Souza</option>
-            <option>Carlos Pereira</option>
-            <option>Juliana Costa</option>
-            <option>Roberto Lima</option>
           </select>
           <label for="procedure">Procedimento</label
           ><select id="procedure">
             <option value="">Selecione</option>
-            <option>Consulta de rotina</option>
-            <option>Limpeza dental</option>
-            <option>Restauração</option>
-            <option>Extração</option>
           </select>
           <label for="amount">Valor (R$)</label
           ><input id="amount" type="number" step="0.01" min="0" />
@@ -117,12 +109,13 @@
             <option value="6">6x</option>
           </select>
           <p class="sub" id="installmentPreview"></p>
-          <label for="date">Data</label><input id="date" type="date" />
+          <label for="date">Data do pagamento ou vencimento</label
+          ><input id="date" type="date" />
           <p id="formError" role="alert"></p>
           <div class="row">
             <button type="button" class="btn sec" id="cancelModal">
               Cancelar</button
-            ><button class="btn">Salvar pagamento</button>
+            ><button class="btn" id="saveButton">Salvar pagamento</button>
           </div>
         </form>
       </div>
@@ -139,6 +132,7 @@
       </div>
     </div>
     <script src="assets/js/common.js"></script>
+    <script src="assets/js/api.js"></script>
     <script src="assets/js/financeiro.js"></script>
   </body>
 </html>
